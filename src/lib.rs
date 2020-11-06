@@ -21,6 +21,8 @@ lazy_static! {
     static ref STATE: State = State {
 
     };
+
+    static ref HANDLERS: Vec<Box<TagHandler>> = vec![];
 }
 
 pub fn parse(html: &str) -> String {
@@ -85,6 +87,11 @@ fn handle_anchor(result: &mut String, name: &QualName, attrs: &Vec<Attribute>) {
     if let Some(link) = url {
         result.push_str("[")
     }
+}
+
+trait TagHandler: Sync {
+    fn handle_tag(&mut self, tag: &NodeData);
+    fn is_applicable(&self, name: String);
 }
 
 #[cfg(test)]
