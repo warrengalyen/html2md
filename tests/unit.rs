@@ -28,8 +28,12 @@ fn test_image() {
     parse(r#"<p><a href="https://example.com/over/there?name=ferret"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/32/Ferret_2008.png/220px-Ferret_2008.png" alt="Ferret"></a><br>"#);
 }
 
-
 #[test]
 fn test_headers() {
     parse(r#"<h1 id="example">EXAMPLE</h1><p><a href="https://www.darkhorizons.com/">Dark Horizons</a></p><h2 id="synopsis">Synopsis</h2>"#);
+} 
+
+#[test]
+fn test_list() {
+    parse(r#"<p><ul><li>Seven things has lady Lackless</li><li>Keeps them underneath her black dress</li><li>One a thing that's not for wearing</li></ul></p>"#);
 } 
