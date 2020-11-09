@@ -21,6 +21,7 @@ mod images;
 mod headers;
 mod lists;
 mod styles;
+mod codes;
 
 use dummy::DummyHandler;
 use paragraphs::ParagraphHandler;
@@ -28,10 +29,11 @@ use anchors::AnchorHandler;
 use headers::HeaderHandler;
 use lists::ListHandler;
 use styles::StyleHandler;
+use codes::CodeHandler;
 
 use images::ImgHandler;
 
-pub fn parse(html: &str) -> StructuredPrinter {
+pub fn parse(html: &str) -> String {
     let opts = ParseOpts {
         tree_builder: TreeBuilderOpts {
             exact_errors: false,
@@ -52,8 +54,8 @@ pub fn parse(html: &str) -> StructuredPrinter {
     let dom = parse_document(RcDom::default(), opts).from_utf8().read_from(&mut html.as_bytes()).unwrap();
     let mut result = StructuredPrinter::default();
     walk(&dom.document, &mut result);
-    println!("{:?}", result);
-    return result;
+    // println!("{:?}", result);
+    return result.data;
 }
 
 fn walk(input: &Handle, result: &mut StructuredPrinter) {
@@ -74,9 +76,10 @@ fn walk(input: &Handle, result: &mut StructuredPrinter) {
                 "p" | "br" => Box::new(ParagraphHandler::default()),
                 "a" => Box::new(AnchorHandler::default()),
                 "img" => Box::new(ImgHandler::default()),
-                "h1" | "h2" | "h3" => Box::new(HeaderHandler::default()),
-                "ul" | "ol" => Box::new(ListHandler::default()),
+                "h1" | "h2" | "h3" | "h4" => Box::new(HeaderHandler::default()),
+                "ul" | "ol" | "li" => Box::new(ListHandler::default()),
                 "b" | "i" | "s" | "strong" | "em" | "del" => Box::new(StyleHandler::default()),
+                "pre" | "code" => Box::new(CodeHandler::default()),
                 _ => Box::new(DummyHandler::default())
             };
 
@@ -104,16 +107,16 @@ fn walk(input: &Handle, result: &mut StructuredPrinter) {
             _ => {}
         };
 
-        println!("{:?}", result);
+        // println!("{:?}", result);
     }
-
-    handler.after_handle(result);
 
     // clear siblings of next level
     result.siblings.remove(&current_depth);
 
     // release parent tag
     result.parent_chain.pop();
+
+    handler.after_handle(result);
 }
 
 #[derive(Debug, Default)]
