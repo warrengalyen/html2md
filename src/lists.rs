@@ -33,6 +33,11 @@ impl TagHandler for ListHandler {
             return;
         }
 
+        if printer.data.as_bytes().get(printer.position - 1).unwrap_or(&0) != &b'\n' {
+            printer.data.insert_str(printer.position, "\n"); 
+            printer.position += 1;
+        }
+
         self.list_type = list_type.unwrap().to_string();
         printer.data.insert_str(printer.position, &" ".repeat(self.depth * 4));
         printer.position += self.depth * 4; // indent inner lists
