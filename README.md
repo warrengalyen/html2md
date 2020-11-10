@@ -21,8 +21,8 @@ Currently supported:
 Limitations
 -------------
 
-- doesn't handle html with whitespaces/indents very well
-- no tables support
+- doesn't handle html with whitespaces/indents very well - WIP
+- no tables support yet
 - no markdown flavors support (-/+ unordered list styles, ##/== headers etc.)
 - doesn't yet detect code style
 
