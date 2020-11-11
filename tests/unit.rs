@@ -35,7 +35,7 @@ fn test_escaping() {
 #[test]
 fn test_image() {
     let md = parse_html(r#"<p><a href="https://example.com/over/there?name=ferret"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/32/Ferret_2008.png/220px-Ferret_2008.png" alt="Ferret"></a><br>"#);
-    assert_eq!(md, "[![Ferret](https://upload.wikimedia.org/wikipedia/commons/thumb/3/32/Ferret_2008.png/220px-Ferret_2008.png)](https://example.com/over/there?name=ferret)\n\n")
+    assert_eq!(md, "[![Ferret](https://upload.wikimedia.org/wikipedia/commons/thumb/3/32/Ferret_2008.png/220px-Ferret_2008.png)](https://example.com/over/there?name=ferret)  \n\n")
 }
 
 #[test]
