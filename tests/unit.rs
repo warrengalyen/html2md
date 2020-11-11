@@ -98,6 +98,7 @@ fn test_quotes2() {
 
 > here's
 > > nested quote!
+>
 >  a quote next line of it
 
 "#)
