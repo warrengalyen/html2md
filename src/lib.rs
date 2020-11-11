@@ -30,6 +30,7 @@ mod codes;
 mod quotes;
 
 use dummy::DummyHandler;
+use dummy::IdentityHandler;
 use paragraphs::ParagraphHandler;
 use anchors::AnchorHandler;
 use images::ImgHandler;
@@ -109,6 +110,8 @@ fn walk(input: &Handle, result: &mut StructuredPrinter) {
                 "a" => Box::new(AnchorHandler::default()),
                 // lists
                 "ol" | "ul" | "menu" => Box::new(ListHandler::default()),
+                // as-is
+                "sub" | "sup" => Box::new(IdentityHandler::default()),
                 "li" => Box::new(ListItemHandler::default()),
                 // other
                 "html" | "head" | "body" => Box::new(DummyHandler::default()),
@@ -181,7 +184,7 @@ impl StructuredPrinter {
 }
 
 /// Trait interface describing abstract handler of arbitrary HTML tag.
-trait TagHandler {
+pub trait TagHandler {
     /// Handle tag encountered when walking HTML tree
     fn handle(&mut self, tag: &NodeData, printer: &mut StructuredPrinter);
 
