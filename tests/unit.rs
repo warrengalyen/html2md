@@ -79,7 +79,7 @@ fn test_list_formatted() {
     * Broken lines, broken strings
     * Broken threads, broken springs
     * Broken idols, broken heads
-    * People sleep in broken beds
+    * People sleep in broken beds   
 * Ain't no use jiving
 * Ain't no use joking
 * EVERYTHING IS BROKEN"#)
