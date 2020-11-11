@@ -28,10 +28,11 @@ impl CodeHandler {
 }
 
 impl TagHandler for CodeHandler {
-
+    
     fn handle(&mut self, tag: &Handle, printer: &mut StructuredPrinter) {
         self.code_type = match tag.data {
             NodeData::Element { ref name, .. } => name.local.to_string(),
+            _ => String::new()
         };
 
         self.do_handle(printer);
@@ -39,4 +40,4 @@ impl TagHandler for CodeHandler {
     fn after_handle(&mut self, printer: &mut StructuredPrinter) {
         self.do_handle(printer);
     }
-} 
+}
