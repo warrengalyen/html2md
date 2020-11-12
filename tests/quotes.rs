@@ -34,4 +34,10 @@ fn test_blockquotes() {
 > Quote at the start of the message
 
 Should not crash the parser"#)
+}
+
+#[test]
+fn test_subsup() {
+    let md = parse_html("X<sub>2</sub>");
+    assert_eq!(md, r#"X<sub>2</sub>"#)
 } 
