@@ -15,7 +15,9 @@ impl TagHandler for ListHandler {
     }
 
     /// indent now-ready list
-    fn after_handle(&mut self, _printer: &mut StructuredPrinter) {
+    fn after_handle(&mut self, printer: &mut StructuredPrinter) {
+        printer.insert_newline();
+        printer.insert_newline();
     }
 }
 

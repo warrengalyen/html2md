@@ -39,9 +39,12 @@ fn test_list_formatted() {
   * Broken threads, broken springs
   * Broken idols, broken heads
   * People sleep in broken beds
-* Ain't no use jiving
+
+  * Ain't no use jiving
 * Ain't no use joking
-* EVERYTHING IS BROKEN"#)
+* EVERYTHING IS BROKEN
+
+"#)
 }
 
 #[test]
@@ -118,5 +121,7 @@ fn test_list_ordered() {
 1. Now did you read the news today?
 2. They say the danger's gone away
 3. Well I can see the fire still alight
-4. Burning into the night"#)
+4. Burning into the night
+
+"#)
 } 

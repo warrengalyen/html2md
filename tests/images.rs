@@ -29,8 +29,8 @@ fn test_image_embedded_with_unsupported_html() {
 
 #[test]
 fn test_image_src_issue() {
-    let md = parse_html("<img src=\"https://dybr.ru/img/43/1532265494_android-Kanedias\" width=\"auto\" height=\"500\" >");
-    assert_eq!(md, "<img src=\"https://dybr.ru/img/43/1532265494_android-Kanedias\" height=\"500\" width=\"auto\" />")
+    let md = parse_html("<img src=\"https://imgur.com/img/43/1532265494_android-Kanedias\" width=\"auto\" height=\"500\" >");
+    assert_eq!(md, "<img src=\"https://imgur.com/img/43/1532265494_android-Kanedias\" height=\"500\" width=\"auto\" />")
 }
 
 #[test]
