@@ -17,6 +17,7 @@ impl TagHandler for HeaderHandler {
         };
 
         printer.insert_newline();
+        printer.insert_newline();
         match self.header_type.as_ref() {
             "h3" => printer.insert_str("### "),
             "h4" => printer.insert_str("#### "),
@@ -24,6 +25,7 @@ impl TagHandler for HeaderHandler {
             "h6" => printer.insert_str("###### "),
             _ => {}
         }
+        printer.insert_newline();
     }
 
     fn after_handle(&mut self, printer: &mut StructuredPrinter) {

@@ -41,7 +41,8 @@ fn test_image() {
 #[test]
 fn test_headers() {
     let md = parse_html(r#"<h1 id="example">EXAMPLE</h1><p><a href="https://www.darkhorizons.com/">Dark Horizons</a>Movie News</p><h2 id="synopsis">Synopsis</h2>"#);
-    assert_eq!(md, "\nEXAMPLE\n==========\n[Dark Horizons](https://www.darkhorizons.com/)Movie News\n\nSynopsis\n----------\n")
-} 
+    assert_eq!(md, "\n\nEXAMPLE\n==========\n[Dark Horizons](https://www.darkhorizons.com/)Movie News\n\nSynopsis\n----------\n")
+}
+
 
  
