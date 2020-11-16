@@ -138,9 +138,9 @@ checksum = "dc6f3ad7b9d11a0c00842ff8de1b60ee58661048eb8049ed33c73594f359d7e6"
 
 [[package]]
 name = "jni"
-version = "0.10.2"
+version = "0.11.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "1ecfa3b81afc64d9a6539c4eece96ac9a93c551c713a313800dade8e33d7b5c1"
+checksum = "294eca097d1dc0bf59de5ab9f7eafa5f77129e9f6464c957ed3ddeb705fb4292"
 dependencies = [
  "cesu8",
  "combine",
