@@ -4,9 +4,10 @@ use super::TagHandler;
 use super::StructuredPrinter;
 
 use crate::common::get_tag_attr;
+use crate::dummy::IdentityHandler;
 
 use regex::Regex;
-use html5ever::rcdom::Handle;
+use markup5ever_rcdom::Handle;
 
 lazy_static! {
     /// Pattern that detects iframes with Youtube embedded videos
@@ -21,13 +22,16 @@ lazy_static! {
     /// * `https://www.instagram.com/p/B1BKr9Wo8YX/embed/`
     /// * `https://www.instagram.com/p/BpKjlo-B4uI/embed/`
     static ref INSTAGRAM_PATTERN: Regex = Regex::new(r"www\.instagram\.com/p/([-\w]+)/embed").unwrap();
+
+    
+    static ref YANDEX_MUSIC_TRACK_PATTERN: Regex = Regex::new(r"https://music.yandex.com/iframe/#track/(\d+)/(\d+)").unwrap();
+    static ref YANDEX_MUSIC_ALBUM_PATTERN: Regex = Regex::new(r"https://music.yandex.com/iframe/#album/(\d+)").unwrap();
 }
 
 #[derive(Default)]
 pub(super) struct IframeHandler {
 }
 
-/// We currently support only Youtube iframes
 impl TagHandler for IframeHandler {
 
     fn handle(&mut self, tag: &Handle, printer: &mut StructuredPrinter) {
@@ -55,10 +59,18 @@ impl TagHandler for IframeHandler {
             printer.append_str(&format!("[![Embedded Instagram post](https://www.instagram.com/p/{mid}/media/?size=m)](https://www.instagram.com/p/{mid}/embed/)", mid = media_id.as_str()));
             return
         }
+
+        // not found, use generic implementation
+        let mut identity = IdentityHandler::default();
+        identity.handle(tag, printer);
     }
 
     fn after_handle(&mut self, printer: &mut StructuredPrinter) {
         printer.insert_newline();
         printer.insert_newline();
+    }
+
+    fn skip_descendants(&self) -> bool {
+        return true;
     }
 } 
