@@ -13,9 +13,9 @@ lazy_static! {
     /// Pattern that detects iframes with Youtube embedded videos
     /// Examples: 
     /// * `https://www.youtube.com/embed/zE-dmXZp3nU?wmode=opaque`
-    /// * `https://www.youtube.com/embed/5yo6exIypkY`
+    /// * `https://www.youtube-nocookie.com/embed/5yo6exIypkY`
     /// * `https://www.youtube.com/embed/TXm6IXrbQuM`
-    static ref YOUTUBE_PATTERN : Regex = Regex::new(r"www\.youtube\.com/embed/([-\w]+)").unwrap(); 
+    static ref YOUTUBE_PATTERN : Regex = Regex::new(r"www\.youtube(?:-nocookie)?\.com/embed/([-\w]+)").unwrap();
 
     /// Pattern that detects iframes with Instagram embedded photos
     /// Examples:
@@ -49,14 +49,14 @@ impl TagHandler for IframeHandler {
         let src = src.unwrap();
 
         if let Some(capture) = YOUTUBE_PATTERN.captures(&src) {
-            let media_id = capture.get(1).unwrap();
-            printer.append_str(&format!("[![Embedded YouTube video](https://img.youtube.com/vi/{mid}/0.jpg)](https://www.youtube.com/watch?v={mid})", mid = media_id.as_str()));
+            let media_id = capture.get(1).map_or("", |m| m.as_str());
+            printer.append_str(&format!("[![Embedded YouTube video](https://img.youtube.com/vi/{mid}/0.jpg)](https://www.youtube.com/watch?v={mid})", mid = media_id));
             return
         }
 
         if let Some(capture) = INSTAGRAM_PATTERN.captures(&src) {
-            let media_id = capture.get(1).unwrap();
-            printer.append_str(&format!("[![Embedded Instagram post](https://www.instagram.com/p/{mid}/media/?size=m)](https://www.instagram.com/p/{mid}/embed/)", mid = media_id.as_str()));
+            let media_id = capture.get(1).map_or("", |m| m.as_str());
+            printer.append_str(&format!("[![Embedded Instagram post](https://www.instagram.com/p/{mid}/media/?size=m)](https://www.instagram.com/p/{mid}/embed/)", mid = media_id));
             return
         }
 
